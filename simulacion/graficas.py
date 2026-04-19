@@ -28,7 +28,7 @@ def graficar_altura_vs_tiempo(df, ruta_salida="resultados/graficas/altura_vs_tie
     # Guardar y cerrar
     plt.savefig(ruta_salida, dpi=300) # Alta resolución
     plt.close()
-    print(f"📊 Gráfica de Altura guardada en: {ruta_salida}")
+    # print(f"📊 Gráfica de Altura guardada en: {ruta_salida}")
 
 def graficar_volumen_vs_tiempo(df, ruta_salida="resultados/graficas/volumen_vs_tiempo.png"):
     """Genera y guarda la gráfica de Volumen vs Tiempo (valor extra)."""
@@ -48,4 +48,4 @@ def graficar_volumen_vs_tiempo(df, ruta_salida="resultados/graficas/volumen_vs_t
     
     plt.savefig(ruta_salida, dpi=300)
     plt.close()
-    print(f"📊 Gráfica de Volumen guardada en: {ruta_salida}")
+    # print(f"📊 Gráfica de Volumen guardada en: {ruta_salida}")

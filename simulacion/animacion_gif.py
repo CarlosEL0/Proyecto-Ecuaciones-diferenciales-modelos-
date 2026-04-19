@@ -49,7 +49,7 @@ def generar_gif_vaciado(df, ruta_salida="resultados/animaciones/vaciado_tanque.g
         
         return agua, texto_info
 
-    print(f"🎬 Generando GIF con {len(df_frames)} cuadros. Esto puede tardar unos segundos...")
+    # print(f"🎬 Generando GIF con {len(df_frames)} cuadros. Esto puede tardar unos segundos...")
     
     # Crear la animación
     anim = animation.FuncAnimation(
@@ -60,7 +60,5 @@ def generar_gif_vaciado(df, ruta_salida="resultados/animaciones/vaciado_tanque.g
         blit=True
     )
     
-    # Guardar el resultado usando Pillow
     anim.save(ruta_salida, writer='pillow', fps=20)
     plt.close()
-    print(f"✅ Animación GIF guardada con éxito en: {ruta_salida}")
