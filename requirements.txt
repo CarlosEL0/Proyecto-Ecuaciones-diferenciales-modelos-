@@ -1,0 +1,16 @@
+# Librerías para simulación matemática
+numpy
+scipy
+matplotlib
+
+# Para animaciones GIF
+Pillow
+
+# Para Django (opcional)
+Django
+
+# Para exportar datos
+pandas
+
+# Para LaTeX (opcional)
+pylatex

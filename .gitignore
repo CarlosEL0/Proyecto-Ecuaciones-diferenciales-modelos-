@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Django
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Resultados temporales
+*.png
+*.gif
+*.csv
+
+# Excepciones (queremos los resultados finales)
+!resultados/graficas/*.png
+!resultados/animaciones/*.gif
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.pdf
+!reporte_latex/main.pdf
+
+# OS
+.DS_Store
+Thumbs.db
