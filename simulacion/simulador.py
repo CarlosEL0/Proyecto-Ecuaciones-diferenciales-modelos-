@@ -2,7 +2,16 @@ import numpy as np
 import pandas as pd
 import os
 from scipy.integrate import solve_ivp
-
+import matplotlib
+matplotlib.use('Agg') # Fundamental para que Django no colapse
+import matplotlib.pyplot as plt
+def generar_grafica_altura(df):
+    plt.figure(figsize=(8, 5))
+    
+    # Tomas las columnas de tu DataFrame de Pandas
+    plt.plot(df['Tiempo_s'], df['Altura_m'], color='#3b82f6', linewidth=2.5)
+    plt.fill_between(df['Tiempo_s'], df['Altura_m'], color='#3b82f6', alpha=0.2)
+    
 # Importamos el modelo matemático que creaste en el paso anterior
 
 from simulacion.modelo_matematico import TanqueVaciado

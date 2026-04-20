@@ -21,7 +21,6 @@
             --text-muted: #64748b;
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
             --pill-bg: #f1f5f9;
         }
 
@@ -30,12 +29,12 @@
             --primary-color: #f8fafc;
             --bg-color: #121212;
             --surface-color: #18191a;
-            --border-color: #0f1012;
+            --border-color: #27272a;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-muted: #a1a1aa;
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-            --pill-bg: #131416;
+            --pill-bg: #27272a;
         }
 
         body {
@@ -65,29 +64,28 @@
 
         /* Tarjetas */
         .card {
-            background-color: var(--surface-color) !important;
-            border: 1px solid var(--border-color) !important;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
             border-radius: 1.25rem;
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
         }
         .card-header-accent {
-            border-top: 4px solid var(--accent-color) !important;
+            border-top: 4px solid var(--accent-color);
         }
 
         /* Campos de Formulario */
         .form-floating > .form-control {
             border-radius: 0.75rem;
-            border: 1px solid var(--border-color) !important;
-            background-color: var(--bg-color) !important;
-            color: var(--text-main) !important;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-main);
             box-shadow: var(--shadow-sm);
         }
         .form-floating > .form-control:focus {
             border-color: var(--accent-color);
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
         }
-        /* Ajuste para el color del label en los inputs flotantes en modo oscuro */
         .form-floating > label {
             color: var(--text-muted);
         }
@@ -129,8 +127,8 @@
 
         /* Tarjetas de Estadísticas */
         .stat-card {
-            background-color: var(--surface-color) !important;
-            border: 1px solid var(--border-color) !important;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
             border-radius: 1rem;
             padding: 1.25rem;
             display: flex;
@@ -156,28 +154,32 @@
             border-radius: 0.75rem;
             display: block;
             margin: 0 auto;
+            transition: filter 0.3s ease; /* Transición suave al cambiar de tema */
         }
         .img-container {
-            background-color: var(--bg-color) !important;
-            border: 1px dashed var(--border-color) !important;
+            background: var(--bg-color);
+            border: 1px dashed var(--border-color);
             border-radius: 1rem;
             padding: 1rem;
             transition: all 0.3s ease;
-            overflow: hidden; /* Evita que el contenido se salga */
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        /* Manejo de las imágenes blancas de Matplotlib en modo oscuro */
+        /* --------------------------------------------------------
+           AQUÍ ESTÁ LA MAGIA CSS PARA LAS IMÁGENES EN MODO OSCURO 
+           -------------------------------------------------------- */
         [data-bs-theme="dark"] .result-img {
-            filter: invert(1) hue-rotate(180deg) brightness(0.9);
-            mix-blend-mode: screen; /* Esto ayuda a que el fondo negro de la imagen se "fusione" con el de la tarjeta */
+            /* 1. invert(0.92): Convierte el blanco puro casi en negro (gris muy oscuro).
+               2. hue-rotate(180deg): Como el invert invirtió los azules a naranjas, esto los rota de vuelta a tonos fríos.
+               3. brightness & contrast: Ajustes finos para que no se vea deslavado.
+            */
+            filter: invert(0.92) hue-rotate(180deg) brightness(1.05) contrast(1.05);
+            border-radius: 0.75rem;
         }
+        /* -------------------------------------------------------- */
 
         /* Pestañas (Nav Pills) */
         .nav-pills {
-            background-color: var(--pill-bg) !important;
+            background-color: var(--pill-bg);
             padding: 0.25rem;
             border-radius: 0.75rem;
             display: inline-flex;
@@ -313,14 +315,14 @@
                     </div>
 
                     <div class="row g-4">
-                        <div class="col-xl-5 col-lg-12">
-                            <h6 class="fw-bold mb-3 text-adaptive">Simulación Dinámica</h6>
-                            <div class="img-container d-flex align-items-center justify-content-center" style="height: 450px;">
-                                <img src="{{ resultados.gif_vaciado }}" alt="GIF Vaciado" class="result-img shadow-sm" style="max-height: 100%; max-width: 100%; object-fit: contain;">
-                            </div>
-                        </div>
+                       <div class="col-xl-5">
+    <h6 class="fw-bold mb-3 text-adaptive">Simulación Dinámica</h6>
+    <div class="img-container d-flex align-items-center justify-content-center">
+        <img src="{{ resultados.gif_vaciado }}" alt="GIF Vaciado" class="result-img shadow-sm">
+    </div>
+</div>
                         
-                        <div class="col-xl-7 col-lg-12" style="min-width: 0;">
+                        <div class="col-xl-7">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h6 class="fw-bold mb-0 text-adaptive">Análisis Gráfico</h6>
                                 
@@ -338,12 +340,12 @@
                                 </ul>
                             </div>
 
-                            <div class="tab-content img-container" id="graficasTabContent" style="height: 450px;">
-                                <div class="tab-pane fade show active text-center h-100 w-100 d-flex align-items-center justify-content-center" id="altura-pane" role="tabpanel" aria-labelledby="altura-tab" tabindex="0">
-                                    <img src="{{ resultados.grafica_altura }}" alt="Gráfica Altura" class="result-img shadow-sm" style="width: 100%; height: 100%; object-fit: stretch;">
+                            <div class="tab-content img-container" id="graficasTabContent">
+                                <div class="tab-pane fade show active text-center" id="altura-pane" role="tabpanel" aria-labelledby="altura-tab" tabindex="0">
+                                    <img src="{{ resultados.grafica_altura }}" alt="Gráfica Altura" class="result-img shadow-sm" style="max-height: 450px;">
                                 </div>
-                                <div class="tab-pane fade text-center h-100 w-100 d-flex align-items-center justify-content-center" id="volumen-pane" role="tabpanel" aria-labelledby="volumen-tab" tabindex="0">
-                                    <img src="{{ resultados.grafica_volumen }}" alt="Gráfica Volumen" class="result-img shadow-sm" style="width: 100%; height: 100%; object-fit: stretch;">
+                                <div class="tab-pane fade text-center" id="volumen-pane" role="tabpanel" aria-labelledby="volumen-tab" tabindex="0">
+                                    <img src="{{ resultados.grafica_volumen }}" alt="Gráfica Volumen" class="result-img shadow-sm" style="max-height: 450px;">
                                 </div>
                             </div>
                         </div>
