@@ -313,10 +313,10 @@
                     </div>
 
                     <div class="row g-4">
-                        <div class="col-xl-5 col-lg-12" style="min-width: 0;">
+                        <div class="col-xl-5 col-lg-12">
                             <h6 class="fw-bold mb-3 text-adaptive">Simulación Dinámica</h6>
-                            <div class="img-container h-100" style="min-height: 400px;">
-                                <img src="{{ resultados.gif_vaciado }}" alt="GIF Vaciado" class="result-img shadow-sm" style="max-height: 380px; object-fit: contain;">
+                            <div class="img-container d-flex align-items-center justify-content-center" style="height: 450px;">
+                                <img src="{{ resultados.gif_vaciado }}" alt="GIF Vaciado" class="result-img shadow-sm" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                             </div>
                         </div>
                         
@@ -338,12 +338,12 @@
                                 </ul>
                             </div>
 
-                            <div class="tab-content img-container" id="graficasTabContent">
-                                <div class="tab-pane fade show active text-center" id="altura-pane" role="tabpanel" aria-labelledby="altura-tab" tabindex="0">
-                                    <img src="{{ resultados.grafica_altura }}" alt="Gráfica Altura" class="result-img shadow-sm" style="max-height: 450px;">
+                            <div class="tab-content img-container" id="graficasTabContent" style="height: 450px;">
+                                <div class="tab-pane fade show active text-center h-100 w-100 d-flex align-items-center justify-content-center" id="altura-pane" role="tabpanel" aria-labelledby="altura-tab" tabindex="0">
+                                    <img src="{{ resultados.grafica_altura }}" alt="Gráfica Altura" class="result-img shadow-sm" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                                 </div>
-                                <div class="tab-pane fade text-center" id="volumen-pane" role="tabpanel" aria-labelledby="volumen-tab" tabindex="0">
-                                    <img src="{{ resultados.grafica_volumen }}" alt="Gráfica Volumen" class="result-img shadow-sm" style="max-height: 450px;">
+                                <div class="tab-pane fade text-center h-100 w-100 d-flex align-items-center justify-content-center" id="volumen-pane" role="tabpanel" aria-labelledby="volumen-tab" tabindex="0">
+                                    <img src="{{ resultados.grafica_volumen }}" alt="Gráfica Volumen" class="result-img shadow-sm" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                                 </div>
                             </div>
                         </div>
