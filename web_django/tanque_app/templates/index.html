@@ -1,133 +1,370 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Vaciado de Tanque - EDO</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Simulador de Torricelli | Panel de Control</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
     <style>
+        /* Variables por defecto (Tema Claro) */
+        :root {
+            --primary-color: #0f172a; 
+            --accent-color: #3b82f6; 
+            --accent-hover: #2563eb;
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
+            --border-color: #e2e8f0;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --pill-bg: #f1f5f9;
+        }
+
+        /* Variables para el Tema Oscuro */
+        [data-bs-theme="dark"] {
+            --primary-color: #f8fafc;
+            --bg-color: #121212;
+            --surface-color: #18191a;
+            --border-color: #27272a;
+            --text-main: #f8fafc;
+            --text-muted: #a1a1aa;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+            --pill-bg: #27272a;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
+            background-color: var(--bg-color) !important;
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+        /* Utilidad para textos que deben cambiar de color según el tema */
+        .text-adaptive {
+            color: var(--text-main) !important;
+        }
+
+        /* Navbar */
         .navbar {
-            background-color: #2c3e50;
+            background-color: var(--surface-color) !important;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
         }
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Tarjetas */
         .card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
         }
+        .card-header-accent {
+            border-top: 4px solid var(--accent-color);
+        }
+
+        /* Campos de Formulario */
+        .form-floating > .form-control {
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+        }
+        .form-floating > .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+        .form-floating > label {
+            color: var(--text-muted);
+        }
+
+        /* Botón primario */
         .btn-primary {
-            background-color: #3498db;
+            background-color: var(--accent-color);
             border: none;
-            padding: 10px 25px;
+            border-radius: 0.75rem;
+            padding: 0.875rem 1.5rem;
             font-weight: 600;
+            transition: all 0.2s ease;
         }
         .btn-primary:hover {
-            background-color: #2980b9;
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(59, 130, 246, 0.25);
         }
+
+        /* Botón Theme Toggle */
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .theme-toggle-btn:hover {
+            color: var(--accent-color);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Tarjetas de Estadísticas */
+        .stat-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        /* Imágenes y Contenedores */
         .result-img {
             max-width: 100%;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            height: auto;
+            border-radius: 0.75rem;
+            display: block;
+            margin: 0 auto;
+            transition: filter 0.3s ease; /* Transición suave al cambiar de tema */
         }
-        .sidebar {
-            background-color: white;
-            padding: 2rem;
-            height: 100%;
+        .img-container {
+            background: var(--bg-color);
+            border: 1px dashed var(--border-color);
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.3s ease;
         }
-        .stats-badge {
-            font-size: 1.1rem;
-            padding: 0.8rem 1.2rem;
-            border-radius: 50px;
+
+        /* --------------------------------------------------------
+           AQUÍ ESTÁ LA MAGIA CSS PARA LAS IMÁGENES EN MODO OSCURO 
+           -------------------------------------------------------- */
+        [data-bs-theme="dark"] .result-img {
+            /* 1. invert(0.92): Convierte el blanco puro casi en negro (gris muy oscuro).
+               2. hue-rotate(180deg): Como el invert invirtió los azules a naranjas, esto los rota de vuelta a tonos fríos.
+               3. brightness & contrast: Ajustes finos para que no se vea deslavado.
+            */
+            filter: invert(0.92) hue-rotate(180deg) brightness(1.05) contrast(1.05);
+            border-radius: 0.75rem;
+        }
+        /* -------------------------------------------------------- */
+
+        /* Pestañas (Nav Pills) */
+        .nav-pills {
+            background-color: var(--pill-bg);
+            padding: 0.25rem;
+            border-radius: 0.75rem;
+            display: inline-flex;
+            transition: background-color 0.3s ease;
+        }
+        .nav-pills .nav-link {
+            color: var(--text-muted);
+            font-weight: 500;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            transition: all 0.2s;
+        }
+        .nav-pills .nav-link:hover {
+            color: var(--primary-color);
+        }
+        .nav-pills .nav-link.active {
+            background-color: var(--surface-color);
+            color: var(--accent-color);
+            box-shadow: var(--shadow-sm);
+            font-weight: 600;
+        }
+
+        /* Estado Vacío */
+        .empty-state {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem;
+        }
+        .empty-state-icon {
+            font-size: 4rem;
+            color: var(--border-color);
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-dark mb-4">
-    <div class="container">
-        <span class="navbar-brand mb-0 h1">🚰 Simulador de Vaciado de Tanque (Ley de Torricelli)</span>
+<nav class="navbar navbar-expand-lg sticky-top mb-4 py-3">
+    <div class="container-fluid px-4">
+        <span class="navbar-brand mb-0 d-flex align-items-center">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="bi bi-droplet-fill"></i>
+            </div>
+            Simulador de Vaciado
+        </span>
+        
+        <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill d-none d-md-block" style="background-color: var(--bg-color) !important; color: var(--text-muted) !important; border-color: var(--border-color) !important;">
+                Ley de Torricelli
+            </span>
+            
+            <button id="theme-toggle" class="theme-toggle-btn" title="Alternar Modo Oscuro">
+                <i class="bi bi-moon-stars-fill"></i>
+            </button>
+        </div>
     </div>
 </nav>
 
-<div class="container pb-5">
-    <div class="row">
-        <!-- Panel de Control (Formulario) -->
-        <div class="col-md-4 mb-4">
-            <div class="card sidebar">
-                <h4 class="mb-4 text-center">Configuración</h4>
-                <form method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">{{ field.label }}</label>
-                            {{ field }}
-                            {% if field.help_text %}
-                                <div class="form-text">{{ field.help_text }}</div>
-                            {% endif %}
-                            {% for error in field.errors %}
-                                <div class="text-danger small">{{ error }}</div>
+<div class="container-fluid px-4 pb-5">
+    <div class="row g-4">
+        
+        <div class="col-xl-3 col-lg-4">
+            <div class="card h-100 border-0">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-4 d-flex align-items-center text-adaptive">
+                        <i class="bi bi-sliders text-primary me-2"></i> Parámetros
+                    </h5>
+                    
+                    <form method="post" id="sim-form">
+                        {% csrf_token %}
+                        
+                        <div class="vstack gap-2">
+                            {% for field in form %}
+                                <div class="form-floating mb-2">
+                                    {{ field }} 
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    
+                                    {% if field.help_text %}
+                                        <div class="form-text ms-1" style="font-size: 0.75rem; color: var(--text-muted);">{{ field.help_text }}</div>
+                                    {% endif %}
+                                    
+                                    {% for error in field.errors %}
+                                        <div class="text-danger mt-1 ms-1" style="font-size: 0.8rem;">
+                                            <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             {% endfor %}
                         </div>
-                    {% endfor %}
-                    <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-primary">
-                            🚀 Iniciar Simulación
-                        </button>
-                    </div>
-                </form>
+
+                        <div class="mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary w-100" id="btn-submit">
+                                <span id="btn-text"><i class="bi bi-play-fill me-1"></i> Calcular Simulación</span>
+                                <span id="btn-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <!-- Panel de Resultados -->
-        <div class="col-md-8">
+        <div class="col-xl-9 col-lg-8">
             {% if resultados %}
-                <div class="card p-4 mb-4">
-                    <h4 class="mb-4">Resultados de la Simulación</h4>
+                <div class="card card-header-accent border-0 p-4 mb-4">
                     
-                    <!-- Resumen rápido -->
-                    <div class="d-flex gap-3 mb-4 flex-wrap">
-                        <div class="stats-badge bg-primary text-white">
-                            ⏱️ Tiempo de vaciado: <strong>{{ resultados.tiempo_total }} s</strong>
+                    <div class="row g-3 mb-5">
+                        <div class="col-md-6">
+                            <div class="stat-card">
+                                <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                                    <i class="bi bi-stopwatch"></i>
+                                </div>
+                                <div>
+                                    <span class="small text-uppercase fw-bold letter-spacing" style="color: var(--text-muted);">Tiempo Total</span>
+                                    <h3 class="mb-0 fw-bold text-adaptive">{{ resultados.tiempo_total }} <span class="fs-6 fw-normal" style="color: var(--text-muted);">segundos</span></h3>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stats-badge bg-info text-white">
-                            📏 Altura inicial: <strong>{{ resultados.altura_inicial }} m</strong>
+                        <div class="col-md-6">
+                            <div class="stat-card">
+                                <div class="stat-icon bg-info bg-opacity-10 text-info">
+                                    <i class="bi bi-rulers"></i>
+                                </div>
+                                <div>
+                                    <span class="small text-uppercase fw-bold letter-spacing" style="color: var(--text-muted);">Altura Inicial</span>
+                                    <h3 class="mb-0 fw-bold text-adaptive">{{ resultados.altura_inicial }} <span class="fs-6 fw-normal" style="color: var(--text-muted);">metros</span></h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <!-- Animación GIF -->
-                        <div class="col-lg-6 mb-4 text-center">
-                            <h5 class="text-muted mb-3">Simulación Dinámica</h5>
-                            <img src="{{ resultados.gif_vaciado }}" alt="GIF Vaciado" class="result-img shadow-sm">
-                        </div>
+                    <div class="row g-4">
+                       <div class="col-xl-5">
+    <h6 class="fw-bold mb-3 text-adaptive">Simulación Dinámica</h6>
+    <div class="img-container d-flex align-items-center justify-content-center">
+        <img src="{{ resultados.gif_vaciado }}" alt="GIF Vaciado" class="result-img shadow-sm">
+    </div>
+</div>
                         
-                        <!-- Gráfica de Altura -->
-                        <div class="col-lg-6 mb-4 text-center">
-                            <h5 class="text-muted mb-3">Altura vs Tiempo</h5>
-                            <img src="{{ resultados.grafica_altura }}" alt="Gráfica Altura" class="result-img shadow-sm">
+                        <div class="col-xl-7">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold mb-0 text-adaptive">Análisis Gráfico</h6>
+                                
+                                <ul class="nav nav-pills" id="graficasTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="altura-tab" data-bs-toggle="tab" data-bs-target="#altura-pane" type="button" role="tab" aria-selected="true">
+                                            <i class="bi bi-graph-down text-primary me-1"></i> Altura
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="volumen-tab" data-bs-toggle="tab" data-bs-target="#volumen-pane" type="button" role="tab" aria-selected="false">
+                                            <i class="bi bi-water text-info me-1"></i> Volumen
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-content img-container" id="graficasTabContent">
+                                <div class="tab-pane fade show active text-center" id="altura-pane" role="tabpanel" aria-labelledby="altura-tab" tabindex="0">
+                                    <img src="{{ resultados.grafica_altura }}" alt="Gráfica Altura" class="result-img shadow-sm" style="max-height: 450px;">
+                                </div>
+                                <div class="tab-pane fade text-center" id="volumen-pane" role="tabpanel" aria-labelledby="volumen-tab" tabindex="0">
+                                    <img src="{{ resultados.grafica_volumen }}" alt="Gráfica Volumen" class="result-img shadow-sm" style="max-height: 450px;">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Gráfica de Volumen (Full width abajo) -->
-                    <div class="row mt-2">
-                        <div class="col-12 text-center">
-                            <h5 class="text-muted mb-3">Volumen vs Tiempo</h5>
-                            <img src="{{ resultados.grafica_volumen }}" alt="Gráfica Volumen" class="result-img shadow-sm" style="max-height: 400px; width: auto;">
-                        </div>
-                    </div>
                 </div>
             {% else %}
-                <div class="card p-5 text-center justify-content-center h-100">
-                    <div class="py-5">
-                        <div class="mb-4" style="font-size: 4rem;">📉</div>
-                        <h3 class="text-muted">Esperando parámetros...</h3>
-                        <p class="text-secondary">Ingresa los valores del tanque a la izquierda y presiona "Iniciar Simulación" para ver el modelo matemático en acción.</p>
+                <div class="card border-0 h-100">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i class="bi bi-bar-chart-line"></i>
+                        </div>
+                        <h3 class="fw-bold text-adaptive mb-2">Panel Listo para Simular</h3>
+                        <p class="mb-4 max-w-md mx-auto" style="max-width: 500px; color: var(--text-muted);">
+                            Ingresa los parámetros del tanque en el panel izquierdo (radio del tanque, orificio y altura). El motor generará la animación y las gráficas interactivas del proceso.
+                        </p>
+                        <div class="d-inline-flex align-items-center text-primary bg-primary bg-opacity-10 px-4 py-2 rounded-pill small fw-semibold">
+                            <i class="bi bi-info-circle-fill me-2"></i> Todos los valores deben ser mayores a 0
+                        </div>
                     </div>
                 </div>
             {% endif %}
@@ -135,14 +372,72 @@
     </div>
 </div>
 
-<footer class="text-center py-4 text-secondary border-top mt-5">
-    <div class="container">
-        <p class="mb-0">Proyecto de Cálculo - Ecuaciones Diferenciales (Torricelli)</p>
-        <small>Modelado y Simulación Numérica en Python/Django</small>
-    </div>
-</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // --- LÓGICA DEL MODO OSCURO ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeToggleBtn.querySelector('i');
+        const htmlElement = document.documentElement;
+        
+        // Función para cambiar el icono
+        const updateIcon = (theme) => {
+            if(theme === 'dark') {
+                themeIcon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+            } else {
+                themeIcon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+            }
+        };
+
+        // Comprobar si hay un tema guardado en LocalStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-bs-theme', savedTheme);
+            updateIcon(savedTheme);
+        }
+
+        // Evento click para alternar temas
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-bs-theme', newTheme);
+            updateIcon(newTheme);
+            
+            // Guardar preferencia en LocalStorage
+            localStorage.setItem('theme', newTheme);
+        });
+        // ------------------------------
+
+        // Preparar campos de Django para que funcionen con Floating Labels
+        const inputs = document.querySelectorAll('#sim-form input');
+        inputs.forEach(input => {
+            if(input.type !== 'hidden' && input.type !== 'submit') {
+                input.classList.add('form-control');
+                if(!input.getAttribute('placeholder')) {
+                    input.setAttribute('placeholder', 'Valor');
+                }
+            }
+        });
+
+        // Manejo del botón de submit (Loading state)
+        const form = document.getElementById("sim-form");
+        const btnSubmit = document.getElementById("btn-submit");
+        const btnText = document.getElementById("btn-text");
+        const btnSpinner = document.getElementById("btn-spinner");
+
+        if(form) {
+            form.addEventListener("submit", function() {
+                btnSubmit.disabled = true;
+                btnSubmit.style.opacity = "0.9";
+                btnText.innerHTML = "Calculando...";
+                btnSpinner.classList.remove("d-none");
+            });
+        }
+    });
+</script>
+
 </body>
 </html>
