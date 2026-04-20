@@ -165,9 +165,10 @@
             transition: all 0.3s ease;
         }
 
-        /* Manejo de las imágenes blancas de Matplotlib en modo oscuro (opcional, les da un ligero brillo para que no contrasten tan feo) */
+        /* Manejo de las imágenes blancas de Matplotlib en modo oscuro */
         [data-bs-theme="dark"] .result-img {
-            opacity: 0.9;
+            filter: invert(1) hue-rotate(180deg) brightness(0.9);
+            mix-blend-mode: screen; /* Esto ayuda a que el fondo negro de la imagen se "fusione" con el de la tarjeta */
         }
 
         /* Pestañas (Nav Pills) */
