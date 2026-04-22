@@ -1,0 +1,30 @@
+\makeatletter\@ifundefined{bibsep}{}{\setlength{\bibsep}{2pt plus
+  0.3ex}}\makeatother
+\begin{thebibliography}{1}
+\small\renewcommand\newblock{}
+\makeatletter\@ifundefined{bibsep}{\setlength{\parskip}{2pt plus
+  0.3ex}}{}\makeatother
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem{scipy2026}
+\textbf{Community, S.}\textbf{ (2026).}
+\newblock \emph{SciPy v1.13 Reference Guide}.
+
+\bibitem{guiaProyecto2026}
+\textbf{de~Chiapas, U.~P.}\textbf{ (2026).}
+\newblock \emph{Guía de Proyecto: Modelado y Simulación del Vaciado de un
+  Tanque}.
+
+\bibitem{torricelli2026}
+\textbf{Torricelli, E.}\textbf{ (2026).}
+\newblock \emph{Principios de la Dinámica de Fluidos}.
+
+\bibitem{upchiapas2026}
+\textbf{y~equipo, E.~G.}\textbf{ (2026).}
+\newblock Simulación de sistemas físicos en python.
+\newblock \emph{Proyecto de Ingeniería en Software}.
+
+\end{thebibliography}
