@@ -21,10 +21,9 @@ staticfiles/
 *.png
 *.gif
 *.csv
-
-# Excepciones (queremos los resultados finales)
 !resultados/graficas/*.png
 !resultados/animaciones/*.gif
+!reporteLatex/*.png
 
 # LaTeX
 *.aux
@@ -32,8 +31,10 @@ staticfiles/
 *.out
 *.toc
 *.pdf
-!reporte_latex/main.pdf
-
+*.bbl
+*.blg
+*.synctex.gz
+!reporteLatex/ReporteModelo.pdf
 # OS
 .DS_Store
 Thumbs.db
